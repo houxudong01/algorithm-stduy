@@ -1,4 +1,4 @@
-import array_and_linkedlist.AutoIncreaseCapacityList;
+import arrayandlinkedlist.AutoIncreaseCapacityList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

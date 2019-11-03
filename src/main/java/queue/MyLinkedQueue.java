@@ -1,4 +1,4 @@
-package stackandqueueandrecurse;
+package queue;
 
 /**
  * 无界链表队列

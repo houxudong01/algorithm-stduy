@@ -1,4 +1,4 @@
-package stackandqueueandrecurse;
+package queue;
 
 /**
  * 循环队列

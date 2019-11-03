@@ -1,4 +1,4 @@
-package arrayandlinkedlist;
+package list;
 
 /**
  * 循环链表

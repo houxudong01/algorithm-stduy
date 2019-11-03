@@ -1,6 +1,4 @@
-package arrayandlinkedlist;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
+package list;
 
 /**
  * @author:hxd

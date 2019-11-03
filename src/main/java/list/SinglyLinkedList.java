@@ -1,4 +1,4 @@
-package arrayandlinkedlist;
+package list;
 
 /**
  * 单向链表实现

@@ -1,9 +1,8 @@
-package stackandqueueandrecurse;
+package queue;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.swing.*;
+import queue.MyArrayQueue;
 
 /**
  * @author:hxd

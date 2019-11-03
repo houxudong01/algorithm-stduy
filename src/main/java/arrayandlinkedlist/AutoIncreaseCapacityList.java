@@ -6,7 +6,7 @@ import java.util.Arrays;
  * 简单实现自动扩容和缩容的数组
  *
  * @author: hxd
- * @date: 2019/11/02
+ * @date: 2019/11/2
  */
 public class AutoIncreaseCapacityList {
     private int[] elementData;

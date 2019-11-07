@@ -23,6 +23,7 @@ public class BfStringMatch {
         for (int i = 0; i < aChars.length - bChars.length + 1; i++) {
             int j = 0, k = i;
             for (; j < bChars.length; j++, k++) {
+                // 也可以不用声明变量 k ,这样下面的判断表达式就可以修改为 (bChars[j] != aChars[i+j])
                 if (bChars[j] != aChars[k]) {
                     continue out;
                 }

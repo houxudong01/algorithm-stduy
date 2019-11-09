@@ -255,6 +255,24 @@ public class BinarySearchTree {
         return result;
     }
 
+    /**
+     * 获取二叉查找树的高度
+     *
+     * @param root
+     * @return
+     */
+    public int getTreeHeight(TreeNode root) {
+        if (root == null) {
+            return -1;
+        }
+
+        // 没有左右子树的节点的高度是 0
+        if (root.left == null && root.right == null) {
+            return 0;
+        }
+        return Math.max(getTreeHeight(root.left), getTreeHeight(root.right)) + 1;
+    }
+
     class TreeNode {
         int data;
         TreeNode left;

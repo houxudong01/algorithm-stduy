@@ -43,6 +43,9 @@ public class BinaryTreeTest {
         binaryTree.levelOrder(binaryTree.getRoot());
         System.out.println();
 
+        System.out.println("获取树的高度：");
+        System.out.println(binaryTree.getTreeHeight(binaryTree.getRoot()));
+
         System.out.println();
         System.out.println("查找：");
         System.out.println(binaryTree.search(19));

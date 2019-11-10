@@ -31,9 +31,10 @@ public class MinHeap {
         data[count] = value;
         int i = count;
         // 自下往上堆化
-        while (i / 2 >= 0 && data[i / 2] > data[i]) {
-            swap(data, i, i / 2);
-            i = i / 2;
+        // 数组 i 下标处节点的父节点下标为 (i - 1) / 2
+        while ((i - 1) / 2 >= 0 && data[(i - 1) / 2] > data[i]) {
+            swap(data, i, (i - 1) / 2);
+            i = (i - 1) / 2;
         }
         count++;
     }

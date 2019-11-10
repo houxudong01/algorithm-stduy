@@ -29,9 +29,10 @@ public class MaxHeap {
         data[count] = value;
 
         int i = count;
-        while (i / 2 >= 0 && data[i] > data[i / 2]) {
-            swap(data, i, i / 2);
-            i = i / 2;
+        // 数组 i 下标处节点的父节点下标为 (i - 1) / 2
+        while ((i - 1) / 2 >= 0 && data[i] > data[(i - 1) / 2]) {
+            swap(data, i, (i - 1) / 2);
+            i = (i - 1) / 2;
         }
         count++;
     }

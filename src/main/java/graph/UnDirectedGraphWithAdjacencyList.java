@@ -52,16 +52,16 @@ public class UnDirectedGraphWithAdjacencyList {
             Integer current = queue.poll();
             for (int i = 0; i < adj[current].size(); i++) {
                 Integer succeed = adj[current].get(i);
-                if (visited[succeed]) {
-                    continue;
+                if (!visited[succeed]) {
+                    pre[succeed] = current;
+                    if (succeed == target) {
+                        print(pre, start, target);
+                        return;
+                    }
+                    visited[succeed] = true;
+                    queue.add(succeed);
                 }
-                pre[succeed] = current;
-                if (start == target) {
-                    print(pre, start, target);
-                    return;
-                }
-                visited[succeed] = true;
-                queue.add(succeed);
+
             }
         }
     }
@@ -79,7 +79,10 @@ public class UnDirectedGraphWithAdjacencyList {
             pre[i] = -1;
         }
         recurDfs(start, target, pre, visited);
-        print(pre, start, target);
+        // 找到目标顶点才打印
+        if (found) {
+            print(pre, start, target);
+        }
     }
 
     private void recurDfs(int current, int target, int[] pre, boolean[] visited) {

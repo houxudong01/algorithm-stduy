@@ -1,5 +1,8 @@
 package graph;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * 邻接矩阵实现无向无权图
  *
@@ -7,26 +10,105 @@ package graph;
  * @date:2019/11/11
  */
 public class UnDirectedGraphWithAdjacencyMatrix {
-    private int[] vertices;
-    private int[][] matrix;
+    private boolean found = false;
+    private int[][] adj;
+    private int v;
 
-    public UnDirectedGraphWithAdjacencyMatrix(int verticeSize) {
-        this.vertices = new int[verticeSize];
-        this.matrix = new int[verticeSize][verticeSize];
 
-        for (int i = 0; i < verticeSize; i++) {
-            vertices[i] = i;
+    public UnDirectedGraphWithAdjacencyMatrix(int v) {
+        this.v = v;
+        this.adj = new int[v][v];
+        for (int i = 0; i < v; i++) {
+            for (int j = 0; j < v; j++) {
+                adj[i][j] = -1;
+            }
         }
     }
 
     public void addEdge(int i, int j) {
-        if (i > vertices.length - 1 || j > vertices.length - 1) {
+        if (i >= v || j >= v) {
             return;
         }
-        if (i == j) {
+
+        adj[i][j] = 1;
+        adj[j][i] = 1;
+    }
+
+    /**
+     * 广度优先搜索
+     *
+     * @param start
+     * @param target
+     */
+    public void bfs(int start, int target) {
+        boolean[] visited = new boolean[v];
+        visited[start] = true;
+        int[] pre = new int[v];
+        for (int i = 0; i < v; i++) {
+            pre[i] = -1;
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
+
+        while (!queue.isEmpty()) {
+            Integer current = queue.poll();
+            for (int succeed = 0; succeed < adj[current].length; succeed++) {
+                int flag = adj[current][succeed];
+                if (flag == 1 && !visited[succeed]) {
+                    pre[succeed] = current;
+                    if (succeed == target) {
+                        print(pre, start, target);
+                        return;
+                    }
+                    visited[succeed] = true;
+                    queue.add(succeed);
+                }
+            }
+        }
+    }
+
+    /**
+     * 深度优先搜索
+     *
+     * @param start
+     * @param target
+     */
+    public void dfs(int start, int target) {
+        boolean[] visited = new boolean[v];
+        int[] pre = new int[v];
+        for (int i = 0; i < v; i++) {
+            pre[i] = -1;
+        }
+        recurseDfs(start, target, pre, visited);
+        if (found) {
+            print(pre, start, target);
+        }
+    }
+
+    private void recurseDfs(int current, int target, int[] pre, boolean[] visited) {
+        if (found) {
             return;
         }
-        matrix[i][j] = 1;
-        matrix[j][i] = 1;
+        visited[current] = true;
+
+        if (current == target) {
+            found = true;
+            return;
+        }
+
+        for (int succeed = 0; succeed < adj[current].length; succeed++) {
+            int flag = adj[current][succeed];
+            if (flag == 1 && !visited[succeed]) {
+                pre[succeed] = current;
+                recurseDfs(succeed, target, pre, visited);
+            }
+        }
+    }
+
+    private void print(int[] pre, int start, int target) {
+        if (pre[target] != -1 && start != target) {
+            print(pre, start, pre[target]);
+        }
+        System.out.print(target + "->");
     }
 }

@@ -46,7 +46,7 @@ public class MaxHeap {
         }
         int maxValue = data[0];
         data[0] = data[--count];
-        heapIfy(data, count, 0);
+        heapIfy(data, count - 1, 0);
         return maxValue;
     }
 

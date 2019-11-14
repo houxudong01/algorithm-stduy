@@ -1,37 +1,33 @@
 package heap;
 
 /**
- * 小顶堆实现
- * 用数组存储堆
+ * 基于小顶堆实现一个优先级队列
+ * 规定：整型值越小，优先级越高
  *
  * @author:hxd
- * @date:2019/11/10
+ * @date:2019/11/14
  */
-public class MinHeap {
+public class PriorityQueue {
     private int[] data;
     private int capacity;
     private int count;
 
-    public MinHeap(int capacity) {
-        data = new int[capacity];
+    public PriorityQueue(int capacity) {
+        this.data = new int[capacity];
         this.capacity = capacity;
-        this.count = 0;
     }
 
     /**
-     * 插入
-     * 先插入最后一个位置，然后开始自下往上堆化
+     * 入队
      *
      * @param value
      */
-    public void insert(int value) {
+    public void add(int value) {
         if (count > capacity) {
             return;
         }
         data[count] = value;
         int i = count;
-        // 自下往上堆化
-        // 数组 i 下标处节点的父节点下标为 (i - 1) / 2
         while ((i - 1) / 2 >= 0 && data[(i - 1) / 2] > data[i]) {
             swap(data, i, (i - 1) / 2);
             i = (i - 1) / 2;
@@ -40,34 +36,36 @@ public class MinHeap {
     }
 
     /**
-     * 移除堆顶元素
+     * 出队
+     *
+     * @return
      */
-    public int removeMin() {
+    public int poll() {
         if (count == 0) {
             return -1;
         }
-        // 直接把最后一个数据放到堆顶，然后开始重新堆化
-        int minValue = data[0];
+        int reValue = data[0];
         data[0] = data[--count];
         heapIfy(data, count - 1, 0);
-        return minValue;
+        return reValue;
     }
 
     /**
-     * 自上往下堆化
+     * 判断队列是否为空
      *
-     * @param data
-     * @param n
-     * @param i
+     * @return
      */
+    public boolean idEmpty() {
+        return count == 0;
+    }
+
     private void heapIfy(int[] data, int n, int i) {
         while (true) {
             int minPos = i;
-            if (2 * i + 1 <= n && data[i] > data[2 * i + 1]) {
+            if (2 * i + 1 <= n && data[2 * i + 1] < data[i]) {
                 minPos = 2 * i + 1;
             }
-
-            if (2 * i + 2 <= n && data[minPos] > data[2 * i + 2]) {
+            if (2 * i + 2 <= n && data[2 * i + 2] < data[minPos]) {
                 minPos = 2 * i + 2;
             }
             if (minPos == i) {
@@ -78,16 +76,10 @@ public class MinHeap {
         }
     }
 
-    /**
-     * 交换数组中两个位置的值
-     *
-     * @param data
-     * @param i
-     * @param j
-     */
-    public void swap(int[] data, int i, int j) {
+    private void swap(int[] data, int i, int j) {
         int temp = data[i];
         data[i] = data[j];
         data[j] = temp;
     }
+
 }

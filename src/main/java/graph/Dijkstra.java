@@ -155,6 +155,7 @@ public class Dijkstra {
             }
             data[count] = vertex;
             int i = count;
+            // 从下往上堆化
             while ((i - 1) / 2 >= 0 && data[(i - 1) / 2].dist > data[i].dist) {
                 swap(data, i, (i - 1) / 2);
                 i = (i - 1) / 2;
@@ -186,15 +187,19 @@ public class Dijkstra {
             if (isEmpty()) {
                 return;
             }
+            int k = 0;
             // 定位到节点，将其 dist 值更新
             for (int i = 0; i < count; i++) {
                 if (data[i].id == vertex.id) {
                     data[i].dist = vertex.dist;
+                    k = i;
                 }
             }
-            // 更新值后，重新堆化
-            for (int i = count / 2; i >= 0; i--) {
-                heapIfy(data, count - 1, i);
+
+            // 只有dist变小的情况才会更新，所以从节点下标处从下往上堆化
+            while ((k - 1) / 2 >= 0 && data[(k - 1) / 2].dist > data[k].dist) {
+                swap(data, k, (k - 1) / 2);
+                k = (k - 1) / 2;
             }
         }
 

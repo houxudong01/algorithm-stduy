@@ -14,16 +14,25 @@ public class Package01 {
     /**
      * 包中物品总重量的最大值
      */
-    private int maxW = Integer.MAX_VALUE;
+    private int maxW = Integer.MIN_VALUE;
+    /**
+     * 每个物品的重量
+     */
+    private int[] weight = new int[]{2, 2, 4, 6, 3};
+    /**
+     * 物品个数
+     */
+    private int n = 5;
+    /**
+     * 背包可以承受的重量
+     */
+    private int w = 9;
 
     /**
-     * @param i     考察到哪个物品了
-     * @param cw    当前已经装进去的物品的重量总和
-     * @param items 每个物品的重量
-     * @param n     物品个数
-     * @param w     背包可以承受的重量
+     * @param i  考察到哪个物品了
+     * @param cw 当前已经装进去的物品的重量总和
      */
-    public void f(int i, int cw, int[] items, int n, int w) {
+    public void f(int i, int cw) {
         // cw==w表示装满了;i==n表示已经考察完所有的物品
         if (cw == w || i >= n) {
             if (cw > maxW) {
@@ -32,11 +41,11 @@ public class Package01 {
             return;
         }
         // 第 i 个物品不放入背包
-        f(i + 1, cw, items, n, w);
+        f(i + 1, cw);
 
         // 第 i 个物品放入背包
-        if (cw + items[i] <= w) {
-            f(i + 1, cw + items[i], items, n, w);
+        if (cw + weight[i] <= w) {
+            f(i + 1, cw + weight[i]);
         }
     }
 }

@@ -1,4 +1,4 @@
-package heap;
+package study.heap;
 
 import org.junit.Test;
 

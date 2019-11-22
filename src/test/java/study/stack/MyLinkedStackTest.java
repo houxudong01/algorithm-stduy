@@ -1,8 +1,7 @@
-package stack;
+package study.stack;
 
 import org.junit.Before;
 import org.junit.Test;
-import stack.MyLinkedStack;
 
 /**
  * @author:hxd

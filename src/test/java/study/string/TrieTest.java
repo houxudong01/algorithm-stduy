@@ -1,4 +1,4 @@
-package string;
+package study.string;
 
 import org.junit.Assert;
 import org.junit.Test;

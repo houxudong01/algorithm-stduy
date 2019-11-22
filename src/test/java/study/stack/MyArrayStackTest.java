@@ -1,9 +1,8 @@
-package stack;
+package study.stack;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import stack.MyArrayStack;
 
 /**
  * @author:hxd

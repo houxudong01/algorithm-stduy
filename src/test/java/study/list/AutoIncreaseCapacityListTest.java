@@ -1,4 +1,4 @@
-package list;
+package study.list;
 
 import org.junit.Assert;
 import org.junit.Before;

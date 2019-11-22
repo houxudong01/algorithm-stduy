@@ -1,4 +1,4 @@
-package binarytree;
+package study.binarytree;
 
 import org.junit.Test;
 

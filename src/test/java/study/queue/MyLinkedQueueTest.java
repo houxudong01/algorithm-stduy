@@ -1,8 +1,7 @@
-package queue;
+package study.queue;
 
 import org.junit.Before;
 import org.junit.Test;
-import queue.MyLinkedQueue;
 
 /**
  * @author:hxd

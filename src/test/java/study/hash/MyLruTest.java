@@ -1,4 +1,4 @@
-package hash;
+package study.hash;
 
 import org.junit.Test;
 

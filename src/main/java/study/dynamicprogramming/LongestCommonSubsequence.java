@@ -1,16 +1,16 @@
 package study.dynamicprogramming;
 
 /**
- * 计算最长公共子串长度
+ * 计算最长公共子序列长度（不要求字符连续）
  *
  * @author:hxd
  * @date:2019/11/22
  */
-public class LongestCommonSubstring {
+public class LongestCommonSubsequence {
 
     public int lcs(char[] a, int m, char[] b, int n) {
         int[][] maxLcs = new int[m][n];
-        // 初始化第 0 行：a[0]与b[0...j]的最长公共子串长度
+        // 初始化第 0 行：a[0]与b[0...j]的最长公共子序列长度
         for (int j = 0; j < n; j++) {
             if (a[0] == b[j]) {
                 maxLcs[0][j] = 1;
@@ -21,7 +21,7 @@ public class LongestCommonSubstring {
             }
         }
 
-        // 初始化第 0 列：a[0...i]与b[0]的最长公共子串长度
+        // 初始化第 0 列：a[0...i]与b[0]的最长公共子序列长度
         for (int i = 0; i < m; i++) {
             if (b[0] == a[i]) {
                 maxLcs[i][0] = 1;

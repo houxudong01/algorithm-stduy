@@ -20,69 +20,69 @@ public class LongestCommonSubsequence {
      */
     public static int lcs(char[] a, int m, char[] b, int n) {
         // 记录 a[1...m]和b[1...n]的 LCS 长度
-        int[][] c = new int[m + 1][n + 1];
+        int[][] dp = new int[m + 1][n + 1];
 
         // 初始化第 0 行
         for (int j = 0; j <= n; j++) {
-            c[0][j] = 0;
+            dp[0][j] = 0;
         }
         // 初始化第 0 列
         for (int i = 0; i <= m; i++) {
-            c[i][0] = 0;
+            dp[i][0] = 0;
         }
-        // 计算各子序列长度病呢
+        // 计算各子序列长度
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 if (a[i - 1] == b[j - 1]) {
-                    c[i][j] = c[i - 1][j - 1] + 1;
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
-                    c[i][j] = max(c[i - 1][j], c[i][j - 1]);
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
                 }
             }
         }
 
-        // 打印出 c 数组
+        // 打印出 dp 数组
         for (int i = 0; i <= m; i++) {
             for (int j = 0; j <= n; j++) {
-                System.out.print(c[i][j] + " ");
+                System.out.print(dp[i][j] + " ");
             }
             System.out.println();
         }
 
         System.out.println("打印最长子序列");
-        printLcs(c, a, m, b, n);
+        printLcs(dp, a, m, b, n);
         System.out.println();
-        return c[m][n];
+        return dp[m][n];
     }
 
     /**
      * 打印最长公共子序列
      *
-     * @param c
+     * @param dp
      * @param a
      * @param m
      * @param b
      * @param n
      */
-    private static void printLcs(int[][] c, char[] a, int m, char[] b, int n) {
+    private static void printLcs(int[][] dp, char[] a, int m, char[] b, int n) {
         if (m < 1 || n < 1) {
             return;
         }
 
         // 检查到lcs为1并且字符串a和b对应位置字符相同时返回
-        if (c[m][n] == 1 && a[m - 1] == b[n - 1]) {
+        if (dp[m][n] == 1 && a[m - 1] == b[n - 1]) {
             System.out.print(a[m - 1] + " ");
             return;
         }
         // 字符串a和b对应位置字符不同时，倒推到来源值较大的一个可达位置
         if (a[m - 1] != b[n - 1]) {
-            if (c[m - 1][n] < c[m][n - 1]) {
-                printLcs(c, a, m, b, n - 1);
-            } else if (c[m - 1][n] >= c[m][n - 1]) {
-                printLcs(c, a, m - 1, b, n);
+            if (dp[m - 1][n] < dp[m][n - 1]) {
+                printLcs(dp, a, m, b, n - 1);
+            } else if (dp[m - 1][n] >= dp[m][n - 1]) {
+                printLcs(dp, a, m - 1, b, n);
             }
         } else {
-            printLcs(c, a, m - 1, b, n - 1);
+            printLcs(dp, a, m - 1, b, n - 1);
             // 递归打印相同的序列字符，出栈后打印，保证有序
             System.out.print(a[m - 1] + " ");
         }

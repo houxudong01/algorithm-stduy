@@ -19,6 +19,12 @@ public class EightQueens {
      */
     private int count = 0;
 
+    private int n;
+
+    EightQueens(int n) {
+        this.n = n;
+    }
+
     /**
      * 计算
      *
@@ -26,12 +32,12 @@ public class EightQueens {
      */
     public void cal8Queens(int row) {
         // 八个棋子都放好了，打印结果
-        if (row == 8) {
+        if (row == n) {
             printQueens(results);
             return;
         }
         // 每一行都有八种放法
-        for (int column = 0; column < 8; column++) {
+        for (int column = 0; column < n; column++) {
             // 此位置是否满足条件
             if (isOk(row, column)) {
                 // 记录下来满足的位置
@@ -65,7 +71,7 @@ public class EightQueens {
                 return false;
             }
             // 右上对角线是否满足
-            if (rightColumn < 8 && results[i] == rightColumn) {
+            if (rightColumn < n && results[i] == rightColumn) {
                 return false;
             }
             // 一次检查对角线上的每个位置
@@ -81,8 +87,8 @@ public class EightQueens {
      * @param results
      */
     private void printQueens(int[] results) {
-        for (int row = 0; row < 8; row++) {
-            for (int column = 0; column < 8; column++) {
+        for (int row = 0; row < n; row++) {
+            for (int column = 0; column < n; column++) {
                 if (results[row] == column) {
                     System.out.print("Q ");
                 } else {

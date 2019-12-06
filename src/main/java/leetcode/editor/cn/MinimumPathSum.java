@@ -23,6 +23,11 @@ package leetcode.editor.cn;
 public class MinimumPathSum {
     public static void main(String[] args) {
         Solution solution = new MinimumPathSum().new Solution();
+        int[][] grid = new int[][]{
+                {1, 3, 1},
+                {1, 5, 1},
+                {4, 2, 1}};
+        System.out.println(solution.minPathSum(grid));
     }
 
 
@@ -31,30 +36,26 @@ public class MinimumPathSum {
         public int minPathSum(int[][] grid) {
             int m = grid.length;
             int n = grid[0].length;
-            int[][] states = new int[m][n];
-
-            // 初始化状态数组第一行
+            int[][] dp = new int[m][n];
+            // 初始化第一行
             int sum = 0;
             for (int j = 0; j < n; j++) {
                 sum += grid[0][j];
-                states[0][j] = sum;
+                dp[0][j] = sum;
             }
-
-            // 初始化状态数组第一列
+            // 初始化第一列
             sum = 0;
             for (int i = 0; i < m; i++) {
                 sum += grid[i][0];
-                states[i][0] = sum;
+                dp[i][0] = sum;
             }
 
             for (int i = 1; i < m; i++) {
                 for (int j = 1; j < n; j++) {
-                    int up = states[i - 1][j];
-                    int left = states[i][j - 1];
-                    states[i][j] = Math.min(up, left) + grid[i][j];
+                    dp[i][j] = Math.min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j];
                 }
             }
-            return states[m - 1][n - 1];
+            return dp[m - 1][n - 1];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

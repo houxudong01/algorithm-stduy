@@ -10,7 +10,7 @@ public class EightQueensTest {
 
     @Test
     public void eigntQueens() {
-        EightQueens eightQueens = new EightQueens();
+        EightQueens eightQueens = new EightQueens(8);
         eightQueens.cal8Queens(0);
     }
 }

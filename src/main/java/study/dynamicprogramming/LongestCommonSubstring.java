@@ -19,13 +19,13 @@ public class LongestCommonSubstring {
      */
     public static int lcs(char[] a, int m, char[] b, int n) {
         // 记录最长公共子串长度
-        int[][] c = new int[m + 1][n + 1];
+        int[][] dp = new int[m + 1][n + 1];
         // 初始化第 0 行 0 列
         for (int j = 0; j <= n; j++) {
-            c[0][j] = 0;
+            dp[0][j] = 0;
         }
         for (int i = 0; i <= m; i++) {
-            c[i][0] = 0;
+            dp[i][0] = 0;
         }
 
         // 最长公共子串的长度
@@ -35,14 +35,14 @@ public class LongestCommonSubstring {
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 if (a[i - 1] == b[j - 1]) {
-                    c[i][j] = c[i - 1][j - 1] + 1;
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
                     // 每次更新记录最大值
-                    if (c[i][j] > maxLen) {
-                        maxLen = c[i][j];
+                    if (dp[i][j] > maxLen) {
+                        maxLen = dp[i][j];
                         endIndex = i - 1;
                     }
                 } else {
-                    c[i][j] = 0;
+                    dp[i][j] = 0;
                 }
             }
         }

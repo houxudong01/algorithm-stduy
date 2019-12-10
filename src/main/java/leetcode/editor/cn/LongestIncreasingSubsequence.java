@@ -40,9 +40,7 @@ public class LongestIncreasingSubsequence {
             for (int i = 1; i < nums.length; i++) {
                 for (int j = 0; j < i; j++) {
                     if (nums[j] < nums[i]) {
-                        if (state[j] + 1 > state[i]) {
-                            state[i] = state[j] + 1;
-                        }
+                        state[i] = Math.max(state[i], state[j] + 1);
                     }
                 }
             }

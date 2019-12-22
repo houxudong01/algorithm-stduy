@@ -58,16 +58,21 @@ public class ValidParentheses {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isValid(String s) {
-            s = s.replace(" ", "");
-            while (s.contains("()") || s.contains("{}") || s.contains("[]")) {
-                s = s.replace("()", "");
-                s = s.replace("{}", "");
-                s = s.replace("[]", "");
+            Stack<Character> stack = new Stack<>();
+            for (char c : s.toCharArray()) {
+                if (c == '(' || c == '[' || c == '{') {
+                    stack.push(c);
+                } else {
+                    if (stack.isEmpty()) {
+                        return false;
+                    }
+                    Character pop = stack.pop();
+                    if ((pop != '(' && c == ')') || (pop != '[' && c == ']') || (pop != '{' && c == '}')) {
+                        return false;
+                    }
+                }
             }
-            if (s.equals("")) {
-                return true;
-            }
-            return false;
+            return stack.isEmpty();
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

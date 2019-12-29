@@ -11,7 +11,9 @@
 
 package leetcode.editor.cn;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 // 题目编号：128
@@ -22,6 +24,11 @@ public class LongestConsecutiveSequence {
         Solution solution = new LongestConsecutiveSequence().new Solution();
         int[] nums = new int[]{100, 4, 200, 1, 3, 2};
         System.out.println(solution.longestConsecutive2(nums));
+        System.out.println('c' - 'a');
+        System.out.println('A' - 'a');
+        Map<Integer, Integer> map = new HashMap<>();
+        System.out.println(map.put(22, 33));
+
     }
 
 

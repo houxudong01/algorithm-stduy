@@ -51,7 +51,7 @@ public class LongestPalindromicSubstring {
 
             for (int i = 0; i < s.length(); i++) {
                 // 是否需要中心扩展
-                boolean needCalc = true;
+                boolean needExtend = true;
                 // 如果当前字符在回文子串右边界的范围之内
                 if (i < rightSide) {
                     // 计算 i 以 rightSideCenter 为中心的对称位置
@@ -64,11 +64,11 @@ public class LongestPalindromicSubstring {
                     }
                     // 以 i 为中心的回文子串长度小于右边界时不需要中心扩展
                     if (i + halfLength[i] < rightSide) {
-                        needCalc = false;
+                        needExtend = false;
                     }
                 }
                 // 中心扩展
-                if (needCalc) {
+                if (needExtend) {
                     // 判断 i 左右两边的字符是否满足回文子串的条件，并将此回文子串长度半数记录在 halfLength 中
                     while (i - 1 - halfLength[i] >= 0 && i + 1 + halfLength[i] < s.length()) {
                         if (s.charAt(i - 1 - halfLength[i]) == s.charAt(i + 1 + halfLength[i])) {

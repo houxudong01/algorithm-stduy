@@ -37,34 +37,29 @@ public class NumberOfIslands {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int numIslands(char[][] grid) {
-            if (grid.length == 0) {
+            if (grid == null || grid.length == 0) {
                 return 0;
             }
-            int result = 0;
+            int[][] directions = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+            int res = 0;
             for (int i = 0; i < grid.length; i++) {
-                for (int j = 0; j < grid[i].length; j++) {
+                for (int j = 0; j < grid[0].length; j++) {
                     if (grid[i][j] == '1') {
-                        f(i, j, grid);
-                        result++;
+                        dfs(grid, i, j, directions);
+                        res++;
                     }
                 }
             }
-            return result;
+            return res;
         }
 
-        private void f(int i, int j, char[][] grid) {
-            if (i < 0 || i >= grid.length) {
+        public void dfs(char[][] grid, int i, int j, int[][] directions) {
+            if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == '0') {
                 return;
             }
-            if (j < 0 || j >= grid[i].length) {
-                return;
-            }
-            if (grid[i][j] == '1') {
-                grid[i][j] = '0';
-                f(i - 1, j, grid);
-                f(i + 1, j, grid);
-                f(i, j - 1, grid);
-                f(i, j + 1, grid);
+            grid[i][j] = '0';
+            for (int[] dir : directions) {
+                dfs(grid, i + dir[0], j + dir[1], directions);
             }
         }
     }

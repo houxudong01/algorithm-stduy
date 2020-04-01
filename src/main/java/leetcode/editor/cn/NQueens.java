@@ -37,25 +37,24 @@ import java.util.List;
 public class NQueens {
     public static void main(String[] args) {
         Solution solution = new NQueens().new Solution();
-        solution.solveNQueens(4);
+        solution.solveNQueens(8);
     }
 
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        private List<List<String>> res = new ArrayList<>();
         private int[] result;
-        private List<List<String>> r = new ArrayList<>();
 
         public List<List<String>> solveNQueens(int n) {
             result = new int[n];
-            f(0, n);
-            return r;
+            backtracking(n, 0);
+            return res;
         }
 
-        private void f(int row, int n) {
-            // 一趟考察结束，记录结果
-            if (row == n) {
-                List<String> list = new ArrayList<>();
+        private void backtracking(int n, int row) {
+            if (row >= n) {
+                List<String> tempList = new ArrayList<>();
                 for (int i = 0; i < n; i++) {
                     StringBuilder sb = new StringBuilder();
                     for (int j = 0; j < n; j++) {
@@ -65,35 +64,36 @@ public class NQueens {
                             sb.append(".");
                         }
                     }
-                    list.add(sb.toString());
+                    tempList.add(sb.toString());
                 }
-                r.add(list);
+                res.add(tempList);
                 return;
             }
-            // 检查该行每列的位置
-            for (int column = 0; column < n; column++) {
-                if (isOk(row, column, n)) {
-                    result[row] = column;
-                    f(row + 1, n);
+            for (int col = 0; col < n; col++) {
+                if (isOk(row, col, n)) {
+                    result[row] = col;
+                    backtracking(n, row + 1);
                 }
             }
         }
 
-        private boolean isOk(int row, int column, int n) {
-            int leftCol = column - 1;
-            int rightCol = column + 1;
-            for (int i = row - 1; i >= 0; i--) {
-                if (result[i] == column) {
+        private boolean isOk(int row, int col, int n) {
+            int r = row - 1;
+            int leftC = col - 1;
+            int rightC = col + 1;
+            while (r >= 0) {
+                if (result[r] == col) {
                     return false;
                 }
-                if (leftCol >= 0 && result[i] == leftCol) {
+                if (leftC >= 0 && result[r] == leftC) {
                     return false;
                 }
-                if (rightCol < n && result[i] == rightCol) {
+                if (rightC < n && result[r] == rightC) {
                     return false;
                 }
-                leftCol--;
-                rightCol++;
+                leftC--;
+                rightC++;
+                r--;
             }
             return true;
         }

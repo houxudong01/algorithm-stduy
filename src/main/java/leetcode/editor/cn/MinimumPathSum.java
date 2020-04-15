@@ -34,22 +34,22 @@ public class MinimumPathSum {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int minPathSum(int[][] grid) {
+            if (grid == null || grid.length == 0) {
+                return 0;
+            }
             int m = grid.length;
             int n = grid[0].length;
             int[][] dp = new int[m][n];
-            // 初始化第一行
             int sum = 0;
-            for (int j = 0; j < n; j++) {
-                sum += grid[0][j];
-                dp[0][j] = sum;
-            }
-            // 初始化第一列
-            sum = 0;
             for (int i = 0; i < m; i++) {
                 sum += grid[i][0];
                 dp[i][0] = sum;
             }
-
+            sum = 0;
+            for (int j = 0; j < n; j++) {
+                sum += grid[0][j];
+                dp[0][j] = sum;
+            }
             for (int i = 1; i < m; i++) {
                 for (int j = 1; j < n; j++) {
                     dp[i][j] = Math.min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j];

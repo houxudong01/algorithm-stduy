@@ -105,26 +105,6 @@ public class Sort {
     }
 
     /**
-     * 插入排序
-     * 平均时间复杂度 O(n^2)
-     *
-     * @param nums
-     * @return
-     */
-    public static int[] insertSort(int[] nums) {
-        for (int i = 0; i < nums.length - 1; i++) {
-            int preIndex = i;
-            int current = nums[i + 1];
-            while (current < nums[preIndex] && preIndex >= 0) {
-                nums[preIndex + 1] = nums[preIndex];
-                preIndex--;
-            }
-            nums[preIndex + 1] = current;
-        }
-        return nums;
-    }
-
-    /**
      * 选择排序
      * 平均时间复杂度 O(n^2)
      *
@@ -171,6 +151,51 @@ public class Sort {
         return nums;
     }
 
+    /**
+     * 希尔排序
+     * 时间复杂度 O(nlogn)
+     *
+     * @param nums
+     * @return
+     */
+    public static int[] shellSort(int[] nums) {
+        int len = nums.length;
+        int gap = len / 2;
+        while (gap > 0) {
+            for (int i = gap; i < len; i++) {
+                int cur = nums[i];
+                int preIndex = i - gap;
+                while (preIndex >= 0 && nums[preIndex] > cur) {
+                    nums[preIndex + gap] = nums[preIndex];
+                    preIndex -= gap;
+                }
+                nums[preIndex + gap] = cur;
+            }
+            gap /= 2;
+        }
+        return nums;
+    }
+
+    /**
+     * 插入排序
+     * 平均时间复杂度 O(n^2)
+     *
+     * @param nums
+     * @return
+     */
+    public static int[] insertSort(int[] nums) {
+        for (int i = 0; i < nums.length - 1; i++) {
+            int preIndex = i;
+            int current = nums[i + 1];
+            while (preIndex >= 0 && current < nums[preIndex]) {
+                nums[preIndex + 1] = nums[preIndex];
+                preIndex--;
+            }
+            nums[preIndex + 1] = current;
+        }
+        return nums;
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[]{4, 2, 5, 3, 6, 4, 7};
         System.out.println("初始顺序：");
@@ -185,14 +210,18 @@ public class Sort {
 
         System.out.println("插入排序结果：");
         nums = new int[]{4, 2, 5, 3, 6, 4, 7};
-        System.out.println(Arrays.toString(selectSort(nums)));
+        System.out.println(Arrays.toString(insertSort(nums)));
+
+        System.out.println("希尔排序结果：");
+        nums = new int[]{4, 2, 5, 3, 6, 4, 7};
+        System.out.println(Arrays.toString(shellSort(nums)));
 
         System.out.println("快速排序结果：");
         nums = new int[]{4, 2, 5, 3, 6, 4, 7};
-        System.out.println(Arrays.toString(selectSort(nums)));
+        System.out.println(Arrays.toString(quickSort(nums, 0, nums.length - 1)));
 
         System.out.println("归并排序结果：");
         nums = new int[]{4, 2, 5, 3, 6, 4, 7};
-        System.out.println(Arrays.toString(selectSort(nums)));
+        System.out.println(Arrays.toString(mergeSort(nums, 0, nums.length - 1)));
     }
 }

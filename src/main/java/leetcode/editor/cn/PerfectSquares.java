@@ -16,10 +16,7 @@
 
 package leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 // 题目编号：279
 // https://leetcode-cn.com/problems/perfect-squares/
@@ -27,13 +24,26 @@ import java.util.Queue;
 public class PerfectSquares {
     public static void main(String[] args) {
         Solution soluton = new PerfectSquares().new Solution();
-        System.out.println(soluton.numSquares(12));
+        System.out.println(soluton.numSquares(3));
     }
 
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int numSquares(int n) {
+            int[] dp = new int[n + 1];
+            Arrays.fill(dp, Integer.MAX_VALUE);
+            dp[0] = 0;
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j * j <= i; j++) {
+                    dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
+                }
+            }
+            return dp[n];
+        }
+
+
+        public int numSquares2(int n) {
             List<Integer> squares = generateSquares(n);
             Queue<Integer> queue = new LinkedList<>();
             boolean[] marked = new boolean[n + 1];

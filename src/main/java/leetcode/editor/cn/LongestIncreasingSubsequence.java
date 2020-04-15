@@ -18,18 +18,90 @@
 
 package leetcode.editor.cn;
 
+import java.util.Arrays;
+
 // 题目编号：300
 // https://leetcode-cn.com/problems/longest-increasing-subsequence/
 @SuppressWarnings("all")
 public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
         Solution solution = new LongestIncreasingSubsequence().new Solution();
+        int[] nums = new int[]{10, 9, 2, 5, 3, 7, 101, 18};
+        System.out.println(solution.lengthOfLIS(nums));
     }
 
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 二分查找
+         *
+         * @param nums
+         * @return
+         */
         public int lengthOfLIS(int[] nums) {
+            int n = nums.length;
+            int[] tails = new int[n];
+            int len = 0;
+            for (int num : nums) {
+                int index = bs(tails, len, num);
+                tails[index] = num;
+                if (index == len) {
+                    len++;
+                }
+            }
+            return len;
+        }
+
+        private int bs(int[] tails, int len, int num) {
+            int i = 0;
+            int j = len - 1;
+            while (i <= j) {
+                int m = i + (j - i) / 2;
+                if (tails[m] == num) {
+                    return m;
+                } else if (tails[m] < num) {
+                    i = m + 1;
+                } else {
+                    j = m - 1;
+                }
+            }
+            return i;
+        }
+
+        /**
+         * 动态规划
+         *
+         * @param nums
+         * @return
+         */
+        public int lengthOfLIS2(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            int[] dp = new int[nums.length];
+            Arrays.fill(dp, 1);
+            int max = 0;
+            for (int i = 0; i < nums.length; i++) {
+                for (int j = 0; j < i; j++) {
+                    if (nums[j] < nums[i]) {
+                        dp[i] = Math.max(dp[i], dp[j] + 1);
+                        max = Math.max(max, dp[i]);
+                    }
+                }
+            }
+            return max;
+        }
+
+
+        /**
+         * 动态规划
+         *
+         * @param nums
+         * @return
+         */
+        public int lengthOfLIS3(int[] nums) {
             if (nums.length <= 1) {
                 return nums.length;
             }

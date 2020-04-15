@@ -56,30 +56,28 @@ public class LongestCommonSubsequence {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int longestCommonSubsequence(String text1, String text2) {
-            char[] c1s = text1.toCharArray();
-            char[] c2s = text2.toCharArray();
-
-            int[][] dp = new int[c1s.length + 1][c2s.length + 1];
-
-            // 初始化状态数组第一行
-            for (int j = 0; j <= c2s.length; j++) {
-                dp[0][j] = 0;
+            if (text1 == null || text2 == null) {
+                return 0;
             }
-            // 初始化状态数组第一列
-            for (int i = 0; i <= c1s.length; i++) {
+            int m = text1.length();
+            int n = text2.length();
+            int[][] dp = new int[m + 1][n + 1];
+            for (int i = 0; i <= m; i++) {
                 dp[i][0] = 0;
             }
-
-            for (int i = 1; i <= c1s.length; i++) {
-                for (int j = 1; j <= c2s.length; j++) {
-                    if (c1s[i - 1] == c2s[j - 1]) {
+            for (int j = 0; j <= n; j++) {
+                dp[0][j] = 0;
+            }
+            for (int i = 1; i <= m; i++) {
+                for (int j = 1; j <= n; j++) {
+                    if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
                         dp[i][j] = dp[i - 1][j - 1] + 1;
                     } else {
                         dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                     }
                 }
             }
-            return dp[c1s.length][c2s.length];
+            return dp[m][n];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

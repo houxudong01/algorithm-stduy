@@ -17,6 +17,8 @@
 
 package leetcode.editor.cn;
 
+import com.sun.corba.se.impl.oa.poa.AOMEntry;
+
 import java.util.Arrays;
 
 // 题目编号：322
@@ -34,23 +36,22 @@ public class CoinChange {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int coinChange(int[] coins, int amount) {
+            if (coins == null || coins.length == 0) {
+                return 0;
+            }
             Arrays.sort(coins);
-            // dp[j] = value，表示凑成金额 j 需要 value 个硬币
+            // dp[i] 表示容量为i的背包，存放金额i需要的硬币数
             int[] dp = new int[amount + 1];
             Arrays.fill(dp, amount + 1);
             dp[0] = 0;
-            for (int i = 0; i < coins.length; i++) {
-                for (int j = coins[i]; j <= amount; j++) {
-                    // 当前的金额减去此硬币的面值是否大于等于 0
-                    if (j - coins[i] >= 0) {
-                        // 状态转移方程
-                        // 当前的金额需要的硬币数 就等于 当前金额减去此硬币面值 剩下的金额 所需要的硬币数加1，再和当前需要的硬币数 取最小值
-                        dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
+            for (int coin : coins) {
+                for (int i = coin; i <= amount; i++) {
+                    if (i - coin >= 0) {
+                        dp[i] = Math.min(dp[i], dp[i - coin] + 1);
                     }
                 }
             }
             return dp[amount] == amount + 1 ? -1 : dp[amount];
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

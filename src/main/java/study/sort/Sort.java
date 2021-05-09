@@ -19,10 +19,10 @@ public class Sort {
      */
     public static int[] mergeSort(int[] nums, int start, int end) {
         if (start < end) {
-            int m = start + ((end - start) >> 1);
-            mergeSort(nums, start, m);
-            mergeSort(nums, m + 1, end);
-            merge(nums, start, m, end);
+            int mid = start + ((end - start) >> 1);
+            mergeSort(nums, start, mid);
+            mergeSort(nums, mid + 1, end);
+            merge(nums, start, mid, end);
         }
         return nums;
 
@@ -196,6 +196,50 @@ public class Sort {
         return nums;
     }
 
+    /**
+     * 堆排序
+     *
+     * @param nums
+     */
+    public static int[] heapSort(int[] nums) {
+        buildHeap(nums);
+        int k = nums.length - 1;
+        while (k > 0) {
+            swap(nums, 0, k);
+            k--;
+            heapIfy(nums, k, 0);
+        }
+        return nums;
+    }
+
+    /**
+     * 将无序数组组建成 大顶堆
+     *
+     * @param nums
+     */
+    private static void buildHeap(int[] nums) {
+        for (int i = nums.length / 2; i >= 0; i--) {
+            heapIfy(nums, nums.length - 1, i);
+        }
+    }
+
+    private static void heapIfy(int[] data, int n, int i) {
+        while (true) {
+            int maxPos = i;
+            if (2 * i + 1 <= n && data[2 * i + 1] > data[i]) {
+                maxPos = 2 * i + 1;
+            }
+            if (2 * i + 2 <= n && data[2 * i + 2] > data[maxPos]) {
+                maxPos = 2 * i + 2;
+            }
+            if (maxPos == i) {
+                return;
+            }
+            swap(data, i, maxPos);
+            i = maxPos;
+        }
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[]{4, 2, 5, 3, 6, 4, 7};
         System.out.println("初始顺序：");
@@ -223,5 +267,9 @@ public class Sort {
         System.out.println("归并排序结果：");
         nums = new int[]{4, 2, 5, 3, 6, 4, 7};
         System.out.println(Arrays.toString(mergeSort(nums, 0, nums.length - 1)));
+
+        System.out.println("堆排序结果：");
+        nums = new int[]{4, 2, 5, 3, 6, 4, 7};
+        System.out.println(Arrays.toString(heapSort(nums)));
     }
 }
